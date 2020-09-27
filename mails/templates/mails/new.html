@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mails | Compose</title>
+	{{ form.media }}
+</head>
+<body>
+	<h3>Write a new mail</h3>
+	<form action={% url 'new'  %} method="POST">
+	{% csrf_token %}
+	{{ form }}
+	<input type="submit" value="Send">
+	</form>
+
+</body>
+</html>
