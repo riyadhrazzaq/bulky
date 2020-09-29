@@ -1,11 +1,11 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
-class Email(models.Model):
+class BulkEmail(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     sender = models.EmailField(verbose_name="From")
-    receiver = []
+    receiver = models.JSONField(verbose_name='Receipients')
     subject = models.CharField(verbose_name="Subject", max_length=75)
-    # content_alternative = models.TextField(verbose_name="Alternative HTML")
-    content_plain = models.TextField(blank=True)
+    content = models.TextField(blank=True)
     date = models.DateTimeField(default=None)

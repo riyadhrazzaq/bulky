@@ -123,3 +123,8 @@ STATIC_URL = '/static/'
 FROALA_UPLOAD_PATH = 'floara_editor/'
 MEDIA_ROOT = BASE_DIR / 'uploads/' 
 MEDIA_URL = '/uploads/'
+
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'

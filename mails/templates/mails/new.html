@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Mails | Compose</title>
-	{{ form.media }}
-</head>
-<body>
-	<h3>Write a new mail</h3>
-	<form action={% url 'new'  %} method="POST">
-	{% csrf_token %}
-	{{ form }}
-	<input type="submit" value="Send">
-	</form>
+{% extends "mails/base.html" %}
 
-</body>
-</html>
+{% block extra_title_item %}
+<title>Mails | Compose</title>
+{{ form.media }}
+{% endblock %}
+
+{% block content %}
+<h3>Write a new mail</h3>
+<form action={% url 'new'  %} enctype="multipart/form-data" method="POST">
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Send">
+</form>
+{% endblock %}

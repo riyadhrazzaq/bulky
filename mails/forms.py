@@ -8,3 +8,10 @@ class EmailForm(forms.Form):
    content = forms.CharField(widget=FroalaEditor(options={
        'useClasses': False,
        }))
+
+   attachments = forms.FileField(
+           required= False, 
+           widget=forms.ClearableFileInput(attrs={'multiple': True})
+           )
+
+
