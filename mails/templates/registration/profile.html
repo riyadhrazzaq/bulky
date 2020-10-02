@@ -1,0 +1,18 @@
+{% extends 'mails/base.html' %}
+
+{% block content %}
+{% include 'mails/modal.html' %}
+{% for b in bulks_by_user %}
+<a href="{% url 'message' b.pk %}">
+<div class="box">
+<h1 class="title is-4">{{ b.subject }}</h1>
+<p>To: {{ b.receiver |length }} people, Date: {{ b.date}}</p>
+<p>{{ b.receiver }}</p>
+</div>
+</a>
+
+{% empty %}
+<p>You haven't sent any email.</p>
+{% endfor %}
+{% endblock %}
+

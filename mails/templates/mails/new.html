@@ -1,15 +1,52 @@
 {% extends "mails/base.html" %}
-
 {% block extra_title_item %}
-<title>Mails | Compose</title>
-{{ form.media }}
+	<title>Mails | Compose</title>
+	{{ form.media }}
 {% endblock %}
-
 {% block content %}
-<h3>Write a new mail</h3>
-<form action={% url 'new'  %} enctype="multipart/form-data" method="POST">
-{% csrf_token %}
-{{ form }}
-<input type="submit" value="Send">
-</form>
+	<section class="hero is-light">
+		<div class="hero-body">
+			<span class="icon is-large">
+				<i class="fas fa-envelope"></i>
+			</span>
+			<h1 class="hero title">Write a New Email</h1>
+		</div>
+	</section>
+	<section class="mt-4">
+		<form action={% url 'new'  %} enctype="multipart/form-data" method="POST">
+			{% csrf_token %}
+			{% for f in form %}
+				<div class="field">
+					<div class="control">
+						<label class="label">{{ f.label }}</label>
+						{{ f }}
+					</div>
+				</div>
+			{% endfor %}
+			<!-- outlook form -->
+			<div class="m-3"></div>
+			<div class="container p-4 my-4 has-background-warning">
+				<div class="notification is-warning">
+					For now we only support Outlook as email service provider. And we do not store your credentials in our server. That is why every time you want to send emails, you will have to insert credentials again.
+				</div>
+				<div class="field">
+					<div class="control">
+						<label class="label">Your Outlook Email</label>
+						<input type="email" class="input" name="outlook_email">
+					</div>
+				</div>
+				
+				<div class="field">
+					<div class="control">
+						<label class="label">Your Outlook Password</label>
+						<input type="password" class="input" name="outlook_password">
+					</div>
+				</div>
+				
+			</div>
+			
+			<input type="submit" class="button is-success is-fullwidth mb-5" value="Send">
+			
+		</form>
+	</section>
 {% endblock %}

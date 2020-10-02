@@ -6,6 +6,7 @@ import base64
 import mimetypes
 from urllib.parse import urlparse, unquote
 from bs4 import BeautifulSoup
+from django.shortcuts import redirect
 
 def parse_images_to_base64(html):
     sp = BeautifulSoup(html, 'html.parser')
@@ -30,4 +31,16 @@ def parse_images_to_base64(html):
     return sp.prettify()
 
 
-
+def send_mail_with_outlook(request, msg, receipients):
+    if request.method == "GET":
+        return render(request, 'registration/outlook.html')
+    elif request.method == "POST":
+        data = request.POST
+        
+        with smtplib.SMTP("smtp.office365.com", 587) as server:
+            server.login(request.POST.username, request.POST.password)
+            for to in receipients:
+                msg['To'] = to
+                server.send_message(msg)
+                del msg['To']
+        return redirect('profile')

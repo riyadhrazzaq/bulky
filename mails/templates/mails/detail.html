@@ -1,0 +1,17 @@
+{% extends 'mails/base.html' %}
+
+{% block content %}
+<div class="block">
+	<strong>Subject</strong>
+	{{ bulkmail_obj.subject }}
+</div>
+<div class="block">
+	<strong>Receipients</strong>
+	{% for rec in bulkmail_obj.receiver %}
+	{{ rec }},
+	{% endfor %}
+</div>
+<div class="block">
+	{{ bulkmail_obj.content | safe }}
+</div>
+{% endblock %}
