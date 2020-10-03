@@ -71,13 +71,6 @@ def new(request):
                     disposition="attachment",
                 )
 
-        # with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
-        # server.login("2391789313484d", "96d048bb6390e0")
-        # for to in to_email:
-        # msg['To'] = to
-        # server.send_message(msg)
-        # del msg['To']
-
         with smtplib.SMTP("smtp.office365.com", 587) as server:
             server.ehlo()
             server.starttls()
