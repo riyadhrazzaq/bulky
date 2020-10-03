@@ -3,6 +3,11 @@
 	<title>Mails | Signup</title>
 {% endblock %}
 {% block content %}
+	{% for error in form.non_field_errors %}
+		<div class="notification is-danger">
+			<strong>{{ error|escape }}</strong>
+		</div>
+	{% endfor %}
 	<form action="{% url 'signup' %}" method="POST">
 		{% csrf_token %}
 		{% for f in form %}
@@ -11,6 +16,7 @@
 				<div class="control">
 					{{ f }}
 				</div>
+				<p class="help is-danger">{{ f.errors }}</p>
 			</div>
 		{% endfor %}
 		<input type='submit' value='Submit' class="button is-success">

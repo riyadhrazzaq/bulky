@@ -3,6 +3,11 @@
 	<title>Mails | Login</title>
 {% endblock %}
 {% block content %}
+	{% for error in form.non_field_errors %}
+		<div class="notification is-danger">
+			<strong>{{ error|escape }}</strong>
+		</div>
+	{% endfor %}
 	<form method="post" action="{% url 'login' %}">
 		{% csrf_token %}
 		{% for f in form %}

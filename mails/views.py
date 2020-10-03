@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse
 from django.contrib import messages
 
@@ -104,7 +104,7 @@ def new(request):
 
 def signup_view(request):
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect("profile")
     else:
         if request.method == "GET":
             form = UserCreationForm()
@@ -117,8 +117,9 @@ def signup_view(request):
                 form.save()
                 return redirect("login")
             else:
-                return render(reverse("signup_view"))
-
+                errors = form.errors
+                print(errors)
+                return render(request, "registration/signup.html", context={"form": form, "errors": errors})
 
 @login_required
 def profile_view(request):
